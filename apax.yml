@@ -1,0 +1,41 @@
+name: "my-demo-project"
+author: MyName
+description: This package is a template for AX2TIAPU export and import of Json- and Impl-files
+version: 1.0.1
+type: lib
+
+targets:
+  - "1500"
+  - plcsim
+  - llvm
+
+devDependencies:
+  "@ax/sdk": 2311.0.3
+  "@ax/ax2tia": ^7.0.16
+  # "@ax/st-lang-contrib-library-toolbox": ^0.17.2
+
+files:
+  - bin
+
+variables:
+  # an arbitrary directory that can be chosen freely
+  PATH_NAME: "./bin/handover-folder"
+  # you can change the predefined output path where the TIA Portal library will be generated
+  TIA_GLOBAL_LIB_PATH: "./bin/TIAPortalLibrary"
+  # set the path to your local TIA Portal installation
+  TIA_INSTALL_PATH: "C:\\Program Files\\Siemens\\Automation\\Portal V19"
+  # remove, if you do not want to allow debugging of your code
+  APAX_BUILD_ARGS:
+    - "--debug"
+
+scripts:
+  export-tiaplib: ax2tia -i ./bin/1500/*.lib -o "$PATH_NAME"
+  import-tiaplib: '"$TIA_INSTALL_PATH\\bin\\Siemens.Simatic.Lang.Library.Importer.exe" -i "$PATH_NAME" -o "$TIA_GLOBAL_LIB_PATH"'
+  create-tiaplib:
+    - apax build
+    - apax export-tiaplib
+    - apax import-tiaplib
+  # dependencies:
+  # "@ax/trace": ^2.3.4
+installStrategy: strict
+apaxVersion: 3.1.0
