@@ -1,6 +1,7 @@
 ///USING AxUnit;
 USING Stan;
 
+/// Namespace
 NAMESPACE MyTest
 
     {TestFixture}
