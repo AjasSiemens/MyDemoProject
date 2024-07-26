@@ -1,7 +1,7 @@
 NAMESPACE Stan.Standardizer
 
     FUNCTION_BLOCK ItemCounterTiap
-
+        /// Kommentar
         VAR_INPUT
             Execute : BOOL;
         END_VAR
